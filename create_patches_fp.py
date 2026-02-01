@@ -324,7 +324,8 @@ def mp_seg_and_patch(
     process_list=None,
     wsi_format="svs",
 ):
-
+    print("WARNING: THIS FUNCTION DID NOT ADJUST PATCH AND STEP SIZE BASED ON WSI MAGNIFICATION.")
+    
     slides = []
     # multi format support
     if ";" in wsi_format:
@@ -493,7 +494,7 @@ def mp_seg_and_patch(
         print("stitching took {} seconds".format(stitch_time_elapsed))
         df.loc[idx, "status"] = "processed"
 
-    p_pool = Pool(32)
+    p_pool = Pool(32, maxtasksperchild=1)
     p_pool.map(func, list(range(total)))
 
 

@@ -183,7 +183,7 @@ if __name__ == '__main__':
     save_roots = [os.path.join(save_root, i) for i in h5_files]
     args = [(h5, sr, wsi_path) for h5, wsi_path, sr in zip(h5_paths, wsi_paths, save_roots)]
 
-    mp = Pool(parser.cpu_cores)
+    mp = Pool(parser.cpu_cores, maxtasksperchild=1)
     mp.map(read_images, args)
     print('All slides have been cropped!')
 
