@@ -54,31 +54,45 @@ wget https://github.com/birkhoffkiki/GPFM/releases/download/ckpt/GPFM.pth
 
 ## Usage
 
-### Step 1: Patch Coordinate Extraction
+### ⚡Using PrePATH to extract Patch-Level Features
 
+#### Step 1: Coordinate Extraction
 Extract coordinates of foreground patches from whole slide images:
 
 ```bash
 # Configure variables in the script before execution
-bash scripts/get_coors/SAL/sal.sh
+bash scripts/get_coors/example.sh
 ```
 
-### Step 2: Feature Extraction
+#### Step 2: Feature Extraction
 
 Extract patch-level features using the selected foundation model:
 
 ```bash
 # Refer to the script for detailed configuration options
-bash scripts/extract_feature/sal.sh
+bash scripts/extract_feature/one_gpu_example.sh
+```
+If you have multiple GPUs, you can use the `exe.sh` script for parallel processing:
+
+```bash
+bash scripts/extract_feature/exe.sh
+```
+### ⚡Extract patches directly without feature extraction (e.g., for pretraining)
+#### Step 1: Coordinate Extraction
+Extract coordinates of foreground patches from whole slide images:
+```bash
+# Configure variables in the script before execution
+bash scripts/get_coors/example.sh
+```
+#### Step 2: Patch Extraction
+Extract patches based on the coordinates:  
+We strongly recommend packing all patches using the HDF5 method for efficient storage and retrieval.
+```bash
+# Refer to the script for detailed configuration options
+bash scripts/crop_image/example_packed2h5.sh
 ```
 
 ## Supported Foundation Models
-
-PrePATH supports multiple state-of-the-art foundation models for patch-level feature extraction. To extract features using specific models (e.g., ResNet50 and GPFM), configure the `models` parameter in `scripts/extract_feature/exe.sh`:
-
-```bash
-models="resnet50 gpfm"
-```
 
 **Note:** Each foundation model requires its corresponding Python environment to be properly configured.
 | Model | Identifier | Reference |
