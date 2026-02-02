@@ -10,7 +10,7 @@ wsi_dir=/jhcnas7/Pathology/original_data/Breast/ACROBAT2023/tiff
 slide_ext=.tiff
 feat_dir=/jhcnas7/Pathology/code/PrePATH/temp_results #path to save feature
 coors_dir=/jhcnas7/Pathology/code/PrePATH/temp_results  # path where the coors files are saved
-models="resnet50" # foundation models to be used
+model="resnet50" # foundation models to be used
 batch_size=32
 
 # ----------------------------------------------

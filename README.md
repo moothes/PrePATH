@@ -67,7 +67,6 @@ bash scripts/get_coors/example.sh
 #### Step 2: Feature Extraction
 
 Extract patch-level features using the selected foundation model:
-
 ```bash
 # Refer to the script for detailed configuration options
 bash scripts/extract_feature/one_gpu_example.sh
@@ -77,6 +76,20 @@ If you have multiple GPUs, you can use the `exe.sh` script for parallel processi
 ```bash
 bash scripts/extract_feature/exe.sh
 ```
+#### Step 3: (Optional) Extract patches and pack them into HDF5 files
+This is useful for pretraining or if you meet the `Corrupt JPEG data` error during feature extraction.  
+This may happen for `kfb` or `sdpc` images due to limited support in multiprocessing.  
+```bash
+# Refer to the script for detailed configuration options
+bash scripts/crop_image/example_packed2h5.sh
+```
+#### Step 4: (Optional) Extract features from HDF5 packed patches
+If you have packed patches into HDF5 files in Step 3, you can extract features from them directly:
+```bash
+# Refer to the script for detailed configuration options
+bash scripts/extract_feature/one_gpu_from_h5_example.sh
+```
+
 ### ⚡Extract patches directly without feature extraction (e.g., for pretraining)
 #### Step 1: Coordinate Extraction
 Extract coordinates of foreground patches from whole slide images:
