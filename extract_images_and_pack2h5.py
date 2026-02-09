@@ -69,7 +69,6 @@ def read_images(arg):
     
     time_load_h5 = time.time() - st
     st = time.time()
-    #print(f'Loaded h5 file: {h5_path} with {_num} patches, patch level: {level}, patch size: {size} using {time_load_h5:.2f}s')
     
     wsi_handle = get_wsi_handle(wsi_path)
     total_number_of_patches = len(coors)
@@ -78,7 +77,6 @@ def read_images(arg):
     
     time_load_wsi = time.time() - st
     st = time.time()
-    #print(f'Loaded WSI file: {wsi_path} with {total_number_of_patches} patches, allowed corrupted: {allowed_corrupted} using {time_load_wsi:.2f}s')
     try:
         with h5py.File(save_path+'.temp', 'w') as h5_file:
             # create dataset for patches
@@ -93,7 +91,6 @@ def read_images(arg):
             
             time_create_h5 = time.time() - st
             st = time.time()
-            #print(f'Created new h5 file: {save_path} using {time_create_h5:.2f}s')
             
             # process each image and store as JPEG
             for i, (x, y) in enumerate(coors):
@@ -115,13 +112,13 @@ def read_images(arg):
                 # store JPEG byte stream in dataset
                 patches_dataset[i] = np.frombuffer(jpeg_bytes, dtype=np.uint8)
                 
+                ### use the following code to measure time for processing each patch, but it will significantly increase the total time, so we comment it out for now
                 #time_load_each_h5_data = time.time() - st
                 #st = time.time()
                 #print(f'Loaded h5 data and processed patches for {wsi_path} using {time_load_each_h5_data:.2f}s')
                     
             time_load_h5_data = time.time() - st
             st = time.time()
-            #print(f'Loaded h5 data and processed {len(coors)} patches for {wsi_path} using {time_load_h5_data:.2f}s')
             
         os.rename(save_path+'.temp', save_path)
         time_pack = time.time() - st
